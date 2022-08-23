@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import XMLParser
 
-class ViewController: UIViewController {
+class CurrenciesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

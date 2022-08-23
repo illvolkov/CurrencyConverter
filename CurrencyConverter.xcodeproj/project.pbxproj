@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		0403858028B4F0F8003DC780 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403857F28B4F0F8003DC780 /* AppDelegate.swift */; };
-		0403858428B4F0F8003DC780 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403858328B4F0F8003DC780 /* ViewController.swift */; };
+		0403858428B4F0F8003DC780 /* CurrenciesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403858328B4F0F8003DC780 /* CurrenciesController.swift */; };
 		0403858728B4F0F8003DC780 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0403858528B4F0F8003DC780 /* Main.storyboard */; };
 		0403858928B4F0FA003DC780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0403858828B4F0FA003DC780 /* Assets.xcassets */; };
 		0403858C28B4F0FA003DC780 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0403858A28B4F0FA003DC780 /* LaunchScreen.storyboard */; };
+		0403859828B4F7EA003DC780 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403859728B4F7EA003DC780 /* TabBarController.swift */; };
+		0403859B28B4F8D4003DC780 /* CalculatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403859A28B4F8D4003DC780 /* CalculatorController.swift */; };
+		0403859D28B4F937003DC780 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403859C28B4F937003DC780 /* FavoritesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0403857C28B4F0F8003DC780 /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0403857F28B4F0F8003DC780 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0403858328B4F0F8003DC780 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0403858328B4F0F8003DC780 /* CurrenciesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesController.swift; sourceTree = "<group>"; };
 		0403858628B4F0F8003DC780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0403858828B4F0FA003DC780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0403858B28B4F0FA003DC780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0403858D28B4F0FA003DC780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0403859728B4F7EA003DC780 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		0403859A28B4F8D4003DC780 /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
+		0403859C28B4F937003DC780 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				0403859428B4F2CA003DC780 /* App */,
+				0403859928B4F811003DC780 /* TabBarController */,
 				0403859528B4F2D7003DC780 /* ViewController */,
 			);
 			path = Sources;
@@ -80,7 +87,9 @@
 		0403859528B4F2D7003DC780 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0403858328B4F0F8003DC780 /* ViewController.swift */,
+				0403858328B4F0F8003DC780 /* CurrenciesController.swift */,
+				0403859A28B4F8D4003DC780 /* CalculatorController.swift */,
+				0403859C28B4F937003DC780 /* FavoritesController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -94,6 +103,14 @@
 				0403858D28B4F0FA003DC780 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		0403859928B4F811003DC780 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				0403859728B4F7EA003DC780 /* TabBarController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,8 +184,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0403858428B4F0F8003DC780 /* ViewController.swift in Sources */,
+				0403859828B4F7EA003DC780 /* TabBarController.swift in Sources */,
+				0403858428B4F0F8003DC780 /* CurrenciesController.swift in Sources */,
+				0403859D28B4F937003DC780 /* FavoritesController.swift in Sources */,
 				0403858028B4F0F8003DC780 /* AppDelegate.swift in Sources */,
+				0403859B28B4F8D4003DC780 /* CalculatorController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
