@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import XMLCoder
 
 class TabBarController: UITabBarController {
     
@@ -26,10 +25,7 @@ class TabBarController: UITabBarController {
                      image: UIImage(systemName: "dollarsign.circle")),
             generate(viewController: CalculatorController(),
                      title: "Калькулятор",
-                     image: UIImage(systemName: "equal.circle")),
-            generate(viewController: FavoritesController(),
-                     title: "Избранное",
-                     image: UIImage(systemName: "star.circle"))
+                     image: UIImage(systemName: "equal.circle"))
         ]
     }
     

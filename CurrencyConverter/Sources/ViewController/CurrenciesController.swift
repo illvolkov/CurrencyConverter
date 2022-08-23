@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import XMLParser
 
 class CurrenciesController: UIViewController {
 
@@ -15,6 +14,4 @@ class CurrenciesController: UIViewController {
         
     }
 
-
 }
-
