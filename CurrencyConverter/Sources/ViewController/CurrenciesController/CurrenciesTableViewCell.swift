@@ -9,13 +9,15 @@ import UIKit
 
 class CurrenciesTableViewCell: UITableViewCell {
     
+    var view: CurrenciesController?
+    
     //MARK: - Identifier
     
     static let identifier = "CurrenciesTableViewCell"
     
-    private var isNotFavorites: Bool = true {
+    private var isFavorite: Bool = false {
         didSet {
-            if isNotFavorites {
+            if !isFavorite {
                 favoritesButton.setImage(UIImage(systemName: "heart"), for: .normal)
             } else {
                 favoritesButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
@@ -114,7 +116,9 @@ class CurrenciesTableViewCell: UITableViewCell {
     //MARK: - Actions
     
     @objc private func didTap() {
-        isNotFavorites.toggle()
+        isFavorite.toggle()
+        
+        view?.didTapOnIndexPath(cell: self)
     }
     
     //MARK: - Configure
@@ -123,5 +127,13 @@ class CurrenciesTableViewCell: UITableViewCell {
         nameLabel.text = model.name
         charLabel.text = " - \(model.charCode)"
         valueLabel.text = model.value
+        isFavorite = model.isFavorite
+    }
+    
+    func configureFavorite(with model: FavoriteValutes) {
+        nameLabel.text = model.name
+        charLabel.text = model.charCode
+        valueLabel.text = model.value
+        isFavorite = model.isFavorite
     }
 }

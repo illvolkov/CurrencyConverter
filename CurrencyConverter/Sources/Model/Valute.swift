@@ -9,4 +9,5 @@ struct Valute {
     let charCode: String
     let name: String
     let value: String
+    var isFavorite: Bool
 }
