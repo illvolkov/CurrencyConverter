@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Alamofire
-import CoreData
 
 class CurrenciesController: UIViewController {
     
@@ -21,6 +19,7 @@ class CurrenciesController: UIViewController {
     private var valuteCharCode = String()
     private var valuteValue = String()
     private let dataManager = DataManager()
+    private let networkService = NetworkService()
         
     //MARK: - Views
     
@@ -51,12 +50,11 @@ class CurrenciesController: UIViewController {
         setupHierarchy()
         setupLayout()
         setupView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        fetchData()
+        networkService.fetchData(with: self) {
+            self.checkedSelectedValutes()
+            self.tableView.reloadData()
+        }
         valuteTransferFromMemory()
     }
     
@@ -81,28 +79,6 @@ class CurrenciesController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .white
-    }
-    
-    private func fetchData() {
-        let url = "https://www.cbr.ru/scripts/XML_daily.asp"
-        AF.request(url)
-            .validate()
-            .responseData { response in
-                guard let data = response.value else {
-                    let alert = UIAlertController(title: response.error?.errorDescription,
-                                                  message: "",
-                                                  preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-                    self.present(alert, animated: true)
-                    return
-                }
-                let xml = XMLParser(data: data)
-                xml.delegate = self
-                if xml.parse() {
-                    self.checkedSelectedValutes()
-                    self.tableView.reloadData()
-                }
-            }
     }
     
     //MARK: - Functions
@@ -162,6 +138,7 @@ class CurrenciesController: UIViewController {
         }
     }
     
+    //Установка значения isFavorite в true если они уже есть в избранном
     private func checkedSelectedValutes() {
         for i in 0..<valutes.count {
             for j in 0..<favoriteValutes.count {

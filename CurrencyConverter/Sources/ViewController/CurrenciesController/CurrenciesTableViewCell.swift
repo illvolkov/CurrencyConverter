@@ -9,7 +9,7 @@ import UIKit
 
 class CurrenciesTableViewCell: UITableViewCell {
     
-    var view: CurrenciesController?
+    weak var view: CurrenciesController?
     
     //MARK: - Identifier
     
