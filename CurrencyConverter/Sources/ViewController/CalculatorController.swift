@@ -191,7 +191,10 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
         zeroButton.widthAnchor.constraint(equalTo: hStackFive.widthAnchor, multiplier: 0.75).isActive = true
         
         eraseAllButton.translatesAutoresizingMaskIntoConstraints = false
-        eraseAllButton.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: 0.41).isActive = true
+        eraseAllButton.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: 0.375).isActive = true
+        
+        swapValutes.translatesAutoresizingMaskIntoConstraints = false
+        swapValutes.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: 0.375).isActive = true
     }
     
     private func setupView() {
