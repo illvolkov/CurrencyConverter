@@ -9,17 +9,30 @@ import UIKit
 
 class CurrenciesController: UIViewController {
     
+    typealias CurrenciesDelegate = CurrenciesControllerDelegate & UIViewController
+        
     //MARK: - Private property
     
     private let segments = ["Все", "Избранное"]
-    private var valutes = [Valute]()
     private var favoriteValutes = [FavoriteValutes]()
+    private let dataManager = DataManager()
+    private let networkService = NetworkService()
+    
+    //Для XMLParserDelegate
+    private var valutes = [Valute]()
     private var elementName = String()
     private var valuteName = String()
     private var valuteCharCode = String()
     private var valuteValue = String()
-    private let dataManager = DataManager()
-    private let networkService = NetworkService()
+    
+    //MARK: - Global property
+    
+    var isInputSelected = true
+    weak var delegate: CurrenciesDelegate?
+    var inputValuteSelected: Valute?
+    var outputValuteSelected: Valute?
+    var inputFavoriteValuteSelected: FavoriteValutes?
+    var outputFavoriteValuteSelected: FavoriteValutes?
         
     //MARK: - Views
     
@@ -194,6 +207,37 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        guard let delegate = delegate else { return }
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            delegate.isFavoriteSelected = false
+            if isInputSelected {
+                delegate.isInputFavoriteSelected = false
+                delegate.inputValuteSelected = valutes[indexPath.row]
+                delegate.setupInputValute()
+            } else {
+                delegate.isOutputFavoriteSelected = false
+                delegate.outputValuteSelected = valutes[indexPath.row]
+                delegate.setupOutputValute()
+            }
+            dismiss(animated: true)
+        case 1:
+            delegate.isFavoriteSelected = true
+            if isInputSelected {
+                delegate.isInputFavoriteSelected = true
+                delegate.inputFavoriteValuteSelected = favoriteValutes[indexPath.row]
+                delegate.setupInputValute()
+            } else {
+                delegate.isOutputFavoriteSelected = true
+                delegate.outputFavoriteValuteSelected = favoriteValutes[indexPath.row]
+                delegate.setupOutputValute()
+            }
+            dismiss(animated: true)
+        default:
+            break
+        }
     }
 }
 
