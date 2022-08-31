@@ -109,6 +109,7 @@ class CurrenciesTableViewCell: UITableViewCell {
         contentView.heightAnchor.constraint(equalToConstant: contentView.frame.width * 0.25).isActive = true
         contentView.backgroundColor = .black
         contentView.layer.cornerRadius = contentView.frame.width * 0.05
+        contentView.isAccessibilityElement = true
     }
     
     override func layoutSubviews() {

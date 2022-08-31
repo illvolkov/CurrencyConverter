@@ -193,9 +193,11 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             cell.configure(with: valutes[indexPath.row])
+            cell.isAccessibilityElement = true
         case 1:
             if !favoriteValutes.isEmpty {
                 cell.configureFavorite(with: favoriteValutes[indexPath.row])
+                cell.isAccessibilityElement = true
             }
         default:
             break
