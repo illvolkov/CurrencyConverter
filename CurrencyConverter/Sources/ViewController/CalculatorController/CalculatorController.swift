@@ -22,11 +22,11 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
             
             if isSwapValutes {
                 movingState()
-                guard outputLabel.text != "0" else { return }
+                guard outputLabel.text != Strings.zeroTitle else { return }
                 outputLabel.text =  String(calculateSwapRate())
             } else {
                 returnToOriginalState()
-                guard outputLabel.text != "0" else { return }
+                guard outputLabel.text != Strings.zeroTitle else { return }
                 outputLabel.text =  String(calculateRate())
 
             }
@@ -50,10 +50,10 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
     
     //MARK: - Views
     
-    private lazy var inputLabel = createInputOutputLabel(font: view.frame.width * 0.13)
-    private lazy var outputLabel = createInputOutputLabel(font: view.frame.width * 0.13)
-    private lazy var inputValute = createInputOutputLabel(font: view.frame.width * 0.07)
-    private lazy var outputValute = createInputOutputLabel(font: view.frame.width * 0.07)
+    private lazy var inputLabel = createInputOutputLabel(font: view.frame.width * Sizes.labelFontSize0_13)
+    private lazy var outputLabel = createInputOutputLabel(font: view.frame.width * Sizes.labelFontSize0_13)
+    private lazy var inputValute = createInputOutputLabel(font: view.frame.width * Sizes.fontSize0_07)
+    private lazy var outputValute = createInputOutputLabel(font: view.frame.width * Sizes.fontSize0_07)
     private lazy var inputValuteView = createInputOutputView(action: #selector(inputValuteViewDidTap))
     private lazy var outputValuteView = createInputOutputView(action: #selector(outputValuteViewDidTap))
     
@@ -70,23 +70,42 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
     private lazy var hStackFour = createHStack()
     private lazy var hStackFive = createHStack(with: .fillProportionally)
     
-    private lazy var zeroButton = createCalculatorButton(by: "0", tag: 0)
-    private lazy var oneButton = createCalculatorButton(by: "1", tag: 1)
-    private lazy var twoButton = createCalculatorButton(by: "2", tag: 2)
-    private lazy var threeButton = createCalculatorButton(by: "3", tag: 3)
-    private lazy var fourButton = createCalculatorButton(by: "4", tag: 4)
-    private lazy var fiveButton = createCalculatorButton(by: "5", tag: 5)
-    private lazy var sixButton = createCalculatorButton(by: "6", tag: 6)
-    private lazy var sevenButton = createCalculatorButton(by: "7", tag: 7)
-    private lazy var eightButton = createCalculatorButton(by: "8", tag: 8)
-    private lazy var nineButton = createCalculatorButton(by: "9", tag: 9)
-    private lazy var eraseAllButton = createCalculatorButton(by: "C", tag: 10, action: #selector(calculatorControl))
-    private lazy var swapValutes = createCalculatorButton(by: "⇅", tag: 11, action: #selector(calculatorControl))
-    private lazy var divisionButton = createCalculatorButton(by: "/", color: .red, tag: 12, action: #selector(calculatorControl))
-    private lazy var multiplicationButton = createCalculatorButton(by: "X", color: .red, tag: 13, action: #selector(calculatorControl))
-    private lazy var subtractButton = createCalculatorButton(by: "-", color: .red, tag: 14, action: #selector(calculatorControl))
-    private lazy var foldButton = createCalculatorButton(by: "+", color: .red, tag: 15, action: #selector(calculatorControl))
-    private lazy var equalButton = createCalculatorButton(by: "=", color: .red, tag: 16, action: #selector(calculatorControl))
+    private lazy var zeroButton = createCalculatorButton(by: Strings.zeroTitle, tag: ButtonTags.zeroButtonTag)
+    private lazy var oneButton = createCalculatorButton(by: Strings.oneTitle, tag: ButtonTags.oneButtonTag)
+    private lazy var twoButton = createCalculatorButton(by: Strings.twoTitle, tag: ButtonTags.twoButtonTag)
+    private lazy var threeButton = createCalculatorButton(by: Strings.threeTitle, tag: ButtonTags.threeButtonTag)
+    private lazy var fourButton = createCalculatorButton(by: Strings.fourTitle, tag: ButtonTags.fourButtonTag)
+    private lazy var fiveButton = createCalculatorButton(by: Strings.fiveTitle, tag: ButtonTags.fiveButtonTag)
+    private lazy var sixButton = createCalculatorButton(by: Strings.sixTitle, tag: ButtonTags.sixButtonTag)
+    private lazy var sevenButton = createCalculatorButton(by: Strings.sevenTitle, tag: ButtonTags.sevenButtonTag)
+    private lazy var eightButton = createCalculatorButton(by: Strings.eightTitle, tag: ButtonTags.eightButtonTag)
+    private lazy var nineButton = createCalculatorButton(by: Strings.nineTitle, tag: ButtonTags.nineButtonTag)
+    private lazy var eraseAllButton = createCalculatorButton(by: Strings.eraseAllTitle,
+                                                             tag: ButtonTags.eraseAllButtonTag,
+                                                             action: #selector(calculatorControl))
+    private lazy var swapValutes = createCalculatorButton(by: Strings.swapTitle,
+                                                          tag: ButtonTags.swapButtonTag,
+                                                          action: #selector(calculatorControl))
+    private lazy var divisionButton = createCalculatorButton(by: Strings.divisionTitle,
+                                                             color: .red,
+                                                             tag: ButtonTags.divisionButtonTag,
+                                                             action: #selector(calculatorControl))
+    private lazy var multiplicationButton = createCalculatorButton(by: Strings.multiplicationTitle,
+                                                                   color: .red,
+                                                                   tag: ButtonTags.multiplicationButtonTag,
+                                                                   action: #selector(calculatorControl))
+    private lazy var subtractButton = createCalculatorButton(by: Strings.substractTitle,
+                                                             color: .red,
+                                                             tag: ButtonTags.substractButtonTag,
+                                                             action: #selector(calculatorControl))
+    private lazy var foldButton = createCalculatorButton(by: Strings.foldTitle,
+                                                         color: .red,
+                                                         tag: ButtonTags.foldButtonTag,
+                                                         action: #selector(calculatorControl))
+    private lazy var equalButton = createCalculatorButton(by: Strings.equalTitle,
+                                                          color: .red,
+                                                          tag: ButtonTags.equalButtonTag,
+                                                          action: #selector(calculatorControl))
     
     //MARK: - Lifecycle
     
@@ -102,10 +121,10 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
     //MARK: - Initial
     
     private func commonInit() {
-        inputLabel.text = "0"
-        outputLabel.text = "0"
-        inputValute.text = "Выберете валюту"
-        outputValute.text = "Выберете валюту"
+        inputLabel.text = Strings.zeroTitle
+        outputLabel.text = Strings.zeroTitle
+        inputValute.text = Strings.selectValuteTitle
+        outputValute.text = Strings.selectValuteTitle
     }
     
     //MARK: - Settings
@@ -155,29 +174,29 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
         inputValuteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         inputValuteView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         inputValuteView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        inputValuteView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3).isActive = true
+        inputValuteView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: Sizes.inputValuteViewHeightSize).isActive = true
         
         outputValuteView.translatesAutoresizingMaskIntoConstraints = false
-        outputValuteView.topAnchor.constraint(equalTo: inputValuteView.bottomAnchor, constant: 1).isActive = true
+        outputValuteView.topAnchor.constraint(equalTo: inputValuteView.bottomAnchor, constant: Offsets.outputValuteViewBottomOffset).isActive = true
         outputValuteView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         outputValuteView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         outputValuteView.heightAnchor.constraint(equalTo: inputValuteView.heightAnchor).isActive = true
         
         inputValute.translatesAutoresizingMaskIntoConstraints = false
-        inputValute.leftAnchor.constraint(equalTo: inputValuteView.leftAnchor, constant: 10).isActive = true
+        inputValute.leftAnchor.constraint(equalTo: inputValuteView.leftAnchor, constant: Offsets.leftOffset10).isActive = true
         inputValute.centerYAnchor.constraint(equalTo: inputValuteView.centerYAnchor).isActive = true
         
         inputLabel.translatesAutoresizingMaskIntoConstraints = false
-        inputLabel.rightAnchor.constraint(equalTo: inputValuteView.rightAnchor, constant: -10).isActive = true
+        inputLabel.rightAnchor.constraint(equalTo: inputValuteView.rightAnchor, constant: Offsets.rightOffset_10).isActive = true
         inputLabel.centerYAnchor.constraint(equalTo: inputValuteView.centerYAnchor).isActive = true
-        inputLabel.widthAnchor.constraint(equalTo: inputValuteView.widthAnchor, multiplier: 0.6).isActive = true
+        inputLabel.widthAnchor.constraint(equalTo: inputValuteView.widthAnchor, multiplier: Sizes.inputLabelWidthSize).isActive = true
         
         outputValute.translatesAutoresizingMaskIntoConstraints = false
-        outputValute.leftAnchor.constraint(equalTo: outputValuteView.leftAnchor, constant: 10).isActive = true
+        outputValute.leftAnchor.constraint(equalTo: outputValuteView.leftAnchor, constant: Offsets.leftOffset10).isActive = true
         outputValute.centerYAnchor.constraint(equalTo: outputValuteView.centerYAnchor).isActive = true
         
         outputLabel.translatesAutoresizingMaskIntoConstraints = false
-        outputLabel.rightAnchor.constraint(equalTo: outputValuteView.rightAnchor, constant: -10).isActive = true
+        outputLabel.rightAnchor.constraint(equalTo: outputValuteView.rightAnchor, constant: Offsets.rightOffset_10).isActive = true
         outputLabel.centerYAnchor.constraint(equalTo: outputValuteView.centerYAnchor).isActive = true
         outputLabel.widthAnchor.constraint(equalTo: inputLabel.widthAnchor).isActive = true
         
@@ -188,13 +207,13 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
         vStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         zeroButton.translatesAutoresizingMaskIntoConstraints = false
-        zeroButton.widthAnchor.constraint(equalTo: hStackFive.widthAnchor, multiplier: 0.75).isActive = true
+        zeroButton.widthAnchor.constraint(equalTo: hStackFive.widthAnchor, multiplier: Sizes.zeroButtonWidthSize).isActive = true
         
         eraseAllButton.translatesAutoresizingMaskIntoConstraints = false
-        eraseAllButton.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: 0.375).isActive = true
+        eraseAllButton.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: Sizes.widthSize0_375).isActive = true
         
         swapValutes.translatesAutoresizingMaskIntoConstraints = false
-        swapValutes.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: 0.375).isActive = true
+        swapValutes.widthAnchor.constraint(equalTo: hStackOne.widthAnchor, multiplier: Sizes.widthSize0_375).isActive = true
     }
     
     private func setupView() {
@@ -239,7 +258,7 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.masksToBounds = true
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: view.frame.width * 0.07)
+        button.titleLabel?.font = .systemFont(ofSize: view.frame.width * Sizes.fontSize0_07)
         button.backgroundColor = color
         if let action = action {
             button.addTarget(self, action: action, for: .touchUpInside)
@@ -378,7 +397,7 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
                 inputFavoriteValuteSelected != nil && outputValuteSelected != nil
         else { return }
         
-        if mathSign || inputLabel.text == "0" {
+        if mathSign || inputLabel.text == Strings.zeroTitle {
             inputLabel.text = String(sender.tag)
             mathSign = false
         } else {
@@ -391,37 +410,38 @@ class CalculatorController: UIViewController, CurrenciesControllerDelegate {
     
     @objc private func calculatorControl(_ sender: UIButton) {
         
-        if inputLabel.text != "0" && sender.tag != 10 && sender.tag != 11 && sender.tag != 16 {
+        if inputLabel.text != Strings.zeroTitle && sender.tag != ButtonTags.eraseAllButtonTag && sender.tag != ButtonTags.swapButtonTag &&
+        sender.tag != ButtonTags.equalButtonTag {
             secondNumber = Double(inputLabel.text ?? "") ?? 0.0
             
-            if sender.tag == 12 {
-                inputLabel.text = "/"
-            } else if sender.tag == 13 {
-                inputLabel.text = "X"
-            } else if sender.tag == 14 {
-                inputLabel.text = "-"
-            } else if sender.tag == 15 {
-                inputLabel.text = "+"
+            if sender.tag == ButtonTags.divisionButtonTag {
+                inputLabel.text = Strings.divisionTitle
+            } else if sender.tag == ButtonTags.multiplicationButtonTag {
+                inputLabel.text = Strings.multiplicationTitle
+            } else if sender.tag == ButtonTags.substractButtonTag {
+                inputLabel.text = Strings.substractTitle
+            } else if sender.tag == ButtonTags.foldButtonTag {
+                inputLabel.text = Strings.foldTitle
             }
             
             operation = sender.tag
             mathSign = true
-        } else if sender.tag == 16 && inputLabel.text != "0" {
-            if operation == 12 {
+        } else if sender.tag == ButtonTags.equalButtonTag && inputLabel.text != Strings.zeroTitle {
+            if operation == ButtonTags.divisionButtonTag {
                 inputLabel.text = String(secondNumber / firstNumber)
-            } else if operation == 13 {
+            } else if operation == ButtonTags.multiplicationButtonTag {
                 inputLabel.text = String(firstNumber * secondNumber)
-            } else if operation == 14 {
+            } else if operation == ButtonTags.substractButtonTag {
                 inputLabel.text = String(secondNumber - firstNumber)
-            } else if operation == 15 {
+            } else if operation == ButtonTags.foldButtonTag {
                 inputLabel.text = String(firstNumber + secondNumber)
             }
             outputLabel.text =  isSwapValutes ? String(calculateSwapRate()) : String(calculateRate())
-        } else if sender.tag == 11 {
+        } else if sender.tag == ButtonTags.swapButtonTag {
             isSwapValutes.toggle()
         } else {
-            inputLabel.text = "0"
-            outputLabel.text = "0"
+            inputLabel.text = Strings.zeroTitle
+            outputLabel.text = Strings.zeroTitle
             firstNumber = 0
             secondNumber = 0
             operation = 0

@@ -13,7 +13,7 @@ class CurrenciesController: UIViewController {
         
     //MARK: - Private property
     
-    private let segments = ["Все", "Избранное"]
+    private let segments = Sequences.segments
     private var favoriteValutes = [FavoriteValutes]()
     private let dataManager = DataManager()
     private let networkService = NetworkService()
@@ -81,10 +81,10 @@ class CurrenciesController: UIViewController {
     private func setupLayout() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Offsets.segmentedControlTopOffset).isActive = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
+        tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: Offsets.tableViewTopOffset).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -244,8 +244,12 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CurrenciesController: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "Valute" {
+    func parser(_ parser: XMLParser,
+                didStartElement elementName: String,
+                namespaceURI: String?,
+                qualifiedName qName: String?,
+                attributes attributeDict: [String : String] = [:]) {
+        if elementName == Strings.valuteElementName {
             valuteName = String()
             valuteValue = String()
             valuteCharCode = String()
@@ -255,7 +259,7 @@ extension CurrenciesController: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "Valute" {
+        if elementName == Strings.valuteElementName {
             let valute = Valute(charCode: valuteCharCode, name: valuteName, value: valuteValue, isFavorite: false)
             valutes.append(valute)
         }
@@ -265,11 +269,11 @@ extension CurrenciesController: XMLParserDelegate {
         let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
         if !data.isEmpty {
-            if self.elementName == "Name" {
+            if self.elementName == Strings.valuteNameParameter {
                 valuteName += data
-            } else if self.elementName == "CharCode" {
+            } else if self.elementName == Strings.valuteCharCodeParameter {
                 valuteCharCode += data
-            } else if self.elementName == "Value" {
+            } else if self.elementName == Strings.valuteValueParameter {
                 valuteValue += data
             }
         }

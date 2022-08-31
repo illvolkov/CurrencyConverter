@@ -22,6 +22,7 @@
 		042A592828B82C8500C58420 /* FavoriteValutes+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A592628B82C8500C58420 /* FavoriteValutes+CoreDataClass.swift */; };
 		042A592928B82C8500C58420 /* FavoriteValutes+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A592728B82C8500C58420 /* FavoriteValutes+CoreDataProperties.swift */; };
 		042A592C28BB8AD600C58420 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A592B28BB8AD600C58420 /* NetworkService.swift */; };
+		0437F0F828BFF93100231DC2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437F0F728BFF93100231DC2 /* Constants.swift */; };
 		047C701128BE7D5200F77FB9 /* CurrencyConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C701028BE7D5200F77FB9 /* CurrencyConverterUITests.swift */; };
 		D8E79E7B9B7F89D83CFF0D8C /* Pods_CurrencyConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A2C9BADD5520BFE53F1645 /* Pods_CurrencyConverter.framework */; };
 /* End PBXBuildFile section */
@@ -51,9 +52,10 @@
 		040385C528B7715A003DC780 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		041D30A228BCF8AE00DFDAC9 /* CurrenciesControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesControllerDelegate.swift; sourceTree = "<group>"; };
 		042A592028B82ADA00C58420 /* CurrencyConverter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyConverter.xcdatamodel; sourceTree = "<group>"; };
-		042A592628B82C8500C58420 /* FavoriteValutes+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteValutes+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		042A592728B82C8500C58420 /* FavoriteValutes+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteValutes+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		042A592628B82C8500C58420 /* FavoriteValutes+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavoriteValutes+CoreDataClass.swift"; path = "CurrencyConverter/Sources/Model/FavoriteValute/FavoriteValutes+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		042A592728B82C8500C58420 /* FavoriteValutes+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavoriteValutes+CoreDataProperties.swift"; path = "CurrencyConverter/Sources/Model/FavoriteValute/FavoriteValutes+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		042A592B28BB8AD600C58420 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		0437F0F728BFF93100231DC2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		047C700E28BE7D5200F77FB9 /* CurrencyConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrencyConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		047C701028BE7D5200F77FB9 /* CurrencyConverterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterUITests.swift; sourceTree = "<group>"; };
 		48A2C9BADD5520BFE53F1645 /* Pods_CurrencyConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				040385BE28B54BB8003DC780 /* CurrenciesController */,
-				0403859A28B4F8D4003DC780 /* CalculatorController.swift */,
+				0437F0F928C00D8A00231DC2 /* CalculatorController */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -172,9 +174,9 @@
 		040385BF28B55051003DC780 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				042A592628B82C8500C58420 /* FavoriteValutes+CoreDataClass.swift */,
-				042A592728B82C8500C58420 /* FavoriteValutes+CoreDataProperties.swift */,
-				040385C028B550AB003DC780 /* Valute.swift */,
+				0437F0FA28C00DE300231DC2 /* FavoriteValute */,
+				0437F0FB28C00DF500231DC2 /* Valute */,
+				0437F0FC28C00E0300231DC2 /* Constants */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +195,39 @@
 				042A592B28BB8AD600C58420 /* NetworkService.swift */,
 			);
 			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		0437F0F928C00D8A00231DC2 /* CalculatorController */ = {
+			isa = PBXGroup;
+			children = (
+				0403859A28B4F8D4003DC780 /* CalculatorController.swift */,
+			);
+			path = CalculatorController;
+			sourceTree = "<group>";
+		};
+		0437F0FA28C00DE300231DC2 /* FavoriteValute */ = {
+			isa = PBXGroup;
+			children = (
+				042A592628B82C8500C58420 /* FavoriteValutes+CoreDataClass.swift */,
+				042A592728B82C8500C58420 /* FavoriteValutes+CoreDataProperties.swift */,
+			);
+			path = FavoriteValute;
+			sourceTree = "<group>";
+		};
+		0437F0FB28C00DF500231DC2 /* Valute */ = {
+			isa = PBXGroup;
+			children = (
+				040385C028B550AB003DC780 /* Valute.swift */,
+			);
+			path = Valute;
+			sourceTree = "<group>";
+		};
+		0437F0FC28C00E0300231DC2 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				0437F0F728BFF93100231DC2 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		047C700F28BE7D5200F77FB9 /* CurrencyConverterUITests */ = {
@@ -372,6 +407,7 @@
 				0403858428B4F0F8003DC780 /* CurrenciesController.swift in Sources */,
 				040385C328B55153003DC780 /* CurrenciesTableViewCell.swift in Sources */,
 				040385C628B7715A003DC780 /* DataManager.swift in Sources */,
+				0437F0F828BFF93100231DC2 /* Constants.swift in Sources */,
 				041D30A328BCF8AE00DFDAC9 /* CurrenciesControllerDelegate.swift in Sources */,
 				0403858028B4F0F8003DC780 /* AppDelegate.swift in Sources */,
 				0403859B28B4F8D4003DC780 /* CalculatorController.swift in Sources */,

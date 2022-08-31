@@ -21,11 +21,11 @@ class TabBarController: UITabBarController {
     private func generateTabBar() {
         viewControllers = [
             generate(viewController: CurrenciesController(),
-                     title: "Курсы валют",
-                     image: UIImage(systemName: "dollarsign.circle")),
+                     title: Strings.exchangeRatesTabItemTitle,
+                     image: UIImage(systemName: Images.exchangeRatesTabItemImage)),
             generate(viewController: CalculatorController(),
-                     title: "Калькулятор",
-                     image: UIImage(systemName: "equal.circle"))
+                     title: Strings.calculatorTabItemTitle,
+                     image: UIImage(systemName: Images.calculatorTabItemImage))
         ]
     }
     
