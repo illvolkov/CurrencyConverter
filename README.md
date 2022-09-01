@@ -2,7 +2,9 @@
 This application displays a list of currencies with the current rate and calculates the cross rate of one currency to another
 
 Network request - Alamofire
+
 Saving data - CoreData
+
 Dependency manager - CocoaPods
 
 Demonstration:
