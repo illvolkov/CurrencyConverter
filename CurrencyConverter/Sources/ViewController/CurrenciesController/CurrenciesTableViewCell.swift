@@ -9,18 +9,22 @@ import UIKit
 
 class CurrenciesTableViewCell: UITableViewCell {
     
+    //MARK: - Reference
+    
     weak var view: CurrenciesController?
     
     //MARK: - Identifier
     
-    static let identifier = "CurrenciesTableViewCell"
+    static let identifier = Strings.currenciesCellIdentifier
+    
+    //MARK: - Private property
     
     private var isFavorite: Bool = false {
         didSet {
             if !isFavorite {
-                favoritesButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                favoritesButton.setImage(UIImage(systemName: Images.favoritesButtonImage), for: .normal)
             } else {
-                favoritesButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                favoritesButton.setImage(UIImage(systemName: Images.favoritesButtonFillImage), for: .normal)
             }
         }
     }
@@ -29,21 +33,21 @@ class CurrenciesTableViewCell: UITableViewCell {
     
     private lazy var nameLabel: UILabel = {
         let name = UILabel()
-        name.font = .systemFont(ofSize: contentView.frame.width * 0.045, weight: .semibold)
+        name.font = .systemFont(ofSize: contentView.frame.width * Sizes.fontSize0_045, weight: .semibold)
         name.textColor = .white
         return name
     }()
     
     private lazy var charLabel: UILabel = {
         let char = UILabel()
-        char.font = .systemFont(ofSize: contentView.frame.width * 0.045, weight: .semibold)
+        char.font = .systemFont(ofSize: contentView.frame.width * Sizes.fontSize0_045, weight: .semibold)
         char.textColor = .white
         return char
     }()
     
     private lazy var valueLabel: UILabel = {
         let value = UILabel()
-        value.font = .systemFont(ofSize: contentView.frame.width * 0.045, weight: .semibold)
+        value.font = .systemFont(ofSize: contentView.frame.width * Sizes.fontSize0_045, weight: .semibold)
         value.textColor = .white
         return value
     }()
@@ -52,8 +56,8 @@ class CurrenciesTableViewCell: UITableViewCell {
         let favorites = UIButton(type: .system)
         favorites.tintColor = .white
         favorites.layer.masksToBounds = true
-        favorites.setImage(UIImage(systemName: "heart"), for: .normal)
-        favorites.addTarget(self, action: #selector(didTap), for: .touchUpInside)
+        favorites.setImage(UIImage(systemName: Images.favoritesButtonImage), for: .normal)
+        favorites.addTarget(self, action: #selector(favoritesButtonDidTap), for: .touchUpInside)
         return favorites
     }()
     
@@ -82,13 +86,13 @@ class CurrenciesTableViewCell: UITableViewCell {
         
     private func setupLayout() {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -15).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        nameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: Offsets.centerYRightOffset_15).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Offsets.centerYLeftOffset15).isActive = true
+        nameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: Sizes.nameLabelWidthSize).isActive = true
         
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
-        valueLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 15).isActive = true
-        valueLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
+        valueLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: Offsets.centerYLeftOffset15).isActive = true
+        valueLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Offsets.centerYLeftOffset15).isActive = true
         
         charLabel.translatesAutoresizingMaskIntoConstraints = false
         charLabel.centerYAnchor.constraint(equalTo: valueLabel.centerYAnchor).isActive = true
@@ -96,26 +100,30 @@ class CurrenciesTableViewCell: UITableViewCell {
         
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        favoritesButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
-        favoritesButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.1).isActive = true
+        favoritesButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: Offsets.centerYRightOffset_15).isActive = true
+        favoritesButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: Sizes.favoritesButtonWidthSize).isActive = true
         favoritesButton.heightAnchor.constraint(equalTo: favoritesButton.widthAnchor).isActive = true
     }
     
     private func setupContentView() {
-        contentView.heightAnchor.constraint(equalToConstant: contentView.frame.width * 0.25).isActive = true
+        contentView.heightAnchor.constraint(equalToConstant: contentView.frame.width * Sizes.contentViewHeightSize).isActive = true
         contentView.backgroundColor = .black
-        contentView.layer.cornerRadius = contentView.frame.width * 0.05
+        contentView.layer.cornerRadius = contentView.frame.width * Sizes.contentViewCornerRadius
+        contentView.isAccessibilityElement = true
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: Offsets.contentViewOffset10,
+                                                                     left: Offsets.contentViewOffset10,
+                                                                     bottom: 0,
+                                                                     right: Offsets.contentViewOffset10))
     }
     
     //MARK: - Actions
     
-    @objc private func didTap() {
+    @objc private func favoritesButtonDidTap() {
         isFavorite.toggle()
         
         view?.didTapOnIndexPath(cell: self)
@@ -132,7 +140,7 @@ class CurrenciesTableViewCell: UITableViewCell {
     
     func configureFavorite(with model: FavoriteValutes) {
         nameLabel.text = model.name
-        charLabel.text = model.charCode
+        charLabel.text = " - \(model.charCode ?? "")"
         valueLabel.text = model.value
         isFavorite = model.isFavorite
     }

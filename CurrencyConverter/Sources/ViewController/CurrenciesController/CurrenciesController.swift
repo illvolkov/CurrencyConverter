@@ -9,17 +9,30 @@ import UIKit
 
 class CurrenciesController: UIViewController {
     
+    typealias CurrenciesDelegate = CurrenciesControllerDelegate & UIViewController
+        
     //MARK: - Private property
     
-    private let segments = ["Все", "Избранное"]
-    private var valutes = [Valute]()
+    private let segments = Sequences.segments
     private var favoriteValutes = [FavoriteValutes]()
+    private let dataManager = DataManager()
+    private let networkService = NetworkService()
+    
+    //Для XMLParserDelegate
+    private var valutes = [Valute]()
     private var elementName = String()
     private var valuteName = String()
     private var valuteCharCode = String()
     private var valuteValue = String()
-    private let dataManager = DataManager()
-    private let networkService = NetworkService()
+    
+    //MARK: - Global property
+    
+    var isInputSelected = true
+    weak var delegate: CurrenciesDelegate?
+    var inputValuteSelected: Valute?
+    var outputValuteSelected: Valute?
+    var inputFavoriteValuteSelected: FavoriteValutes?
+    var outputFavoriteValuteSelected: FavoriteValutes?
         
     //MARK: - Views
     
@@ -68,10 +81,10 @@ class CurrenciesController: UIViewController {
     private func setupLayout() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Offsets.segmentedControlTopOffset).isActive = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
+        tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: Offsets.tableViewTopOffset).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -180,9 +193,11 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             cell.configure(with: valutes[indexPath.row])
+            cell.isAccessibilityElement = true
         case 1:
             if !favoriteValutes.isEmpty {
                 cell.configureFavorite(with: favoriteValutes[indexPath.row])
+                cell.isAccessibilityElement = true
             }
         default:
             break
@@ -194,12 +209,47 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        guard let delegate = delegate else { return }
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            delegate.isFavoriteSelected = false
+            if isInputSelected {
+                delegate.isInputFavoriteSelected = false
+                delegate.inputValuteSelected = valutes[indexPath.row]
+                delegate.setupInputValute()
+            } else {
+                delegate.isOutputFavoriteSelected = false
+                delegate.outputValuteSelected = valutes[indexPath.row]
+                delegate.setupOutputValute()
+            }
+            dismiss(animated: true)
+        case 1:
+            delegate.isFavoriteSelected = true
+            if isInputSelected {
+                delegate.isInputFavoriteSelected = true
+                delegate.inputFavoriteValuteSelected = favoriteValutes[indexPath.row]
+                delegate.setupInputValute()
+            } else {
+                delegate.isOutputFavoriteSelected = true
+                delegate.outputFavoriteValuteSelected = favoriteValutes[indexPath.row]
+                delegate.setupOutputValute()
+            }
+            dismiss(animated: true)
+        default:
+            break
+        }
     }
 }
 
 extension CurrenciesController: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "Valute" {
+    func parser(_ parser: XMLParser,
+                didStartElement elementName: String,
+                namespaceURI: String?,
+                qualifiedName qName: String?,
+                attributes attributeDict: [String : String] = [:]) {
+        if elementName == Strings.valuteElementName {
             valuteName = String()
             valuteValue = String()
             valuteCharCode = String()
@@ -209,7 +259,7 @@ extension CurrenciesController: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "Valute" {
+        if elementName == Strings.valuteElementName {
             let valute = Valute(charCode: valuteCharCode, name: valuteName, value: valuteValue, isFavorite: false)
             valutes.append(valute)
         }
@@ -219,11 +269,11 @@ extension CurrenciesController: XMLParserDelegate {
         let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
         if !data.isEmpty {
-            if self.elementName == "Name" {
+            if self.elementName == Strings.valuteNameParameter {
                 valuteName += data
-            } else if self.elementName == "CharCode" {
+            } else if self.elementName == Strings.valuteCharCodeParameter {
                 valuteCharCode += data
-            } else if self.elementName == "Value" {
+            } else if self.elementName == Strings.valuteValueParameter {
                 valuteValue += data
             }
         }

@@ -55,7 +55,7 @@ class DataManager {
         do {
             try context.save()
             getFavoriteValutes {
-                print("Валююта удалилась")
+                print("Валюта удалилась")
             }
         }
         catch {

@@ -13,7 +13,7 @@ import CoreData
 extension FavoriteValutes {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoriteValutes> {
-        return NSFetchRequest<FavoriteValutes>(entityName: "FavoriteValutes")
+        return NSFetchRequest<FavoriteValutes>(entityName: Strings.favoriteValutesEntityName)
     }
 
     @NSManaged public var name: String?
